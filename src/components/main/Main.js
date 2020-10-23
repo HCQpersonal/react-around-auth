@@ -24,10 +24,6 @@ export default function Main(props) {
                 <button className="profile__edit-button" aria-label="Edit profile" onClick={props.onEditProfile}></button>
                 <button className="profile__add-button" aria-label="Add new image" onClick={props.onAddPlace}></button>
             </section>
-            <section className="grid">
-                <ul className="grid__photos">
-                </ul>
-            </section>
             <div className="grid">
                 <ul className="grid__photos">
                     {props.cards.map((card) => (

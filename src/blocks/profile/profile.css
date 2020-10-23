@@ -18,7 +18,7 @@
         display: flex;
         flex-direction: column;
         width: 282px;
-        margin: 38px auto;
+        margin: 38px auto 0;
         justify-content: center;
     }
 }
