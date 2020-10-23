@@ -105,6 +105,7 @@ export default function App(props) {
     <>
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
+              <div className="page__container">
                 <Header />
                 <EditProfilePopup
                     isOpen={isEditProfilePopupOpen}
@@ -136,6 +137,7 @@ export default function App(props) {
                     cards={cards}
                 />
                 <Footer />
+              </div>
             </div>
         </CurrentUserContext.Provider>
     </>
