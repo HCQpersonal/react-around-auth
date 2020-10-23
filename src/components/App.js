@@ -104,7 +104,7 @@ export default function App(props) {
   return (
     <>
         <CurrentUserContext.Provider value={currentUser}>
-            <div className="page__container">
+            <div className="page">
                 <Header />
                 <EditProfilePopup
                     isOpen={isEditProfilePopupOpen}

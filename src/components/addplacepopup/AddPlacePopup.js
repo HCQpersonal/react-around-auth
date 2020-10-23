@@ -1,5 +1,5 @@
 import React from 'react';
-import { PopupWithForm } from '../../popupwithform/PopupWithForm';
+import { PopupWithForm } from '../popupwithform/PopupWithForm';
 
 export function AddPlacePopup(props) {
     const [caption, setCaption] = React.useState('');
