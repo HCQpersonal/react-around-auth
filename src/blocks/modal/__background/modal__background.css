@@ -1,0 +1,19 @@
+@import url('./_avatar/modal__background_avatar.css');
+@import url('./_delete/modal__background_delete.css');
+
+.modal__background {
+    background: #FFFFFF;
+    box-shadow: 5px rgba(0, 0, 0, .15);
+    border-radius: 10px;
+    width: 430px;
+    height: 330px;
+    position: relative;
+    padding-bottom: 36px;
+}
+
+@media screen and (max-width: 320px) {
+    .modal__background {
+        width: 280px;
+        height: 100%;
+    }
+}
