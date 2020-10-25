@@ -1,6 +1,7 @@
 @import url('./_avatar/modal__background_avatar.css');
-@import url('./_signin/modal__background_signin.css');
 @import url('./_delete/modal__background_delete.css');
+@import url('./_credentials/modal__background_credentials.css');
+@import url('./_tooltip/modal__background_tooltip.css');
 
 .modal__background {
     background: #FFFFFF;
@@ -9,7 +10,7 @@
     width: 430px;
     height: 330px;
     position: relative;
-    margin-bottom: 36px;
+    padding-bottom: 36px;
 }
 
 @media screen and (max-width: 320px) {
