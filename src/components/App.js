@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Switch, useHistory, Redirect } from 'react-router-dom';
 import { api } from '../utils/Api';
 import { AddPlacePopup } from './addplacepopup/AddPlacePopup';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
@@ -6,6 +7,7 @@ import { EditAvatarPopup } from './editavatarpopup/EditAvatarPopup';
 import { EditProfilePopup } from './editprofilepopup/EditProfilePopup';
 import Footer from './footer/Footer';
 import Header from './header/Header';
+import Login from './login/Login';
 import Main from './main/Main';
 import './../index.css';
 
@@ -107,36 +109,45 @@ export default function App(props) {
             <div className="page">
               <div className="page__container">
                 <Header />
-                <EditProfilePopup
-                    isOpen={isEditProfilePopupOpen}
-                    onClose={closeAllPopups}
-                    onUpdateUser={handleUpdateUserInfo}
-                />           
-                <EditAvatarPopup
-                    isOpen={isEditAvatarPopupOpen}
-                    onClose={closeAllPopups}
-                    onUpdateAvatar={handleUpdateAvatar}
-                />
-                <AddPlacePopup
-                    isOpen={isAddPlacePopupOpen}
-                    onClose={closeAllPopups}
-                    onAddNewCard={handleAddPlace}
-                />
-                <Main 
-                    onEditProfile={handleEditProfileClick}
-                    onAddPlace={handleAddPlaceClick}
-                    onEditAvatar={handleEditAvatarClick}
-                    onCardClick={handleCardClick}
-                    onClosePopups={closeAllPopups}
-                    onCardLike={handleCardLike}
-                    onCardDelete={handleCardDelete}
-                    isEditProfilePopupOpen={isEditProfilePopupOpen}
-                    isAddPlacePopupOpen={isAddPlacePopupOpen}
-                    isEditAvatarPopupOpen={isEditAvatarPopupOpen}
-                    selectedCard={selectedCard}
-                    cards={cards}
-                />
-                <Footer />
+                  <Router>
+                    <Switch>
+                      <Route path='/signin'>
+                        <Login />
+                      </Route>
+                      <Route path='/'>
+                      <EditProfilePopup
+                          isOpen={isEditProfilePopupOpen}
+                          onClose={closeAllPopups}
+                          onUpdateUser={handleUpdateUserInfo}
+                      />           
+                      <EditAvatarPopup
+                          isOpen={isEditAvatarPopupOpen}
+                          onClose={closeAllPopups}
+                          onUpdateAvatar={handleUpdateAvatar}
+                      />
+                      <AddPlacePopup
+                          isOpen={isAddPlacePopupOpen}
+                          onClose={closeAllPopups}
+                          onAddNewCard={handleAddPlace}
+                      />
+                      <Main 
+                          onEditProfile={handleEditProfileClick}
+                          onAddPlace={handleAddPlaceClick}
+                          onEditAvatar={handleEditAvatarClick}
+                          onCardClick={handleCardClick}
+                          onClosePopups={closeAllPopups}
+                          onCardLike={handleCardLike}
+                          onCardDelete={handleCardDelete}
+                          isEditProfilePopupOpen={isEditProfilePopupOpen}
+                          isAddPlacePopupOpen={isAddPlacePopupOpen}
+                          isEditAvatarPopupOpen={isEditAvatarPopupOpen}
+                          selectedCard={selectedCard}
+                          cards={cards}
+                      />
+                      <Footer />
+                    </Route>
+                  </Switch>
+                </Router>
               </div>
             </div>
         </CurrentUserContext.Provider>

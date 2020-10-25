@@ -1,0 +1,16 @@
+/* TO DO fix class names & remove overlay from top header logo & swap buttons */
+
+.modal__background_signin {
+    max-height: 100vh;
+    width: 100vw;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    margin-bottom: -36px;
+}
+
+.modal__form_signin {
+    max-height: 100vh;
+    width: 100vw;
+    background-color: black;
+}
