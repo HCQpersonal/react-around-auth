@@ -155,19 +155,19 @@ function App(props) {
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
               <div className="page__container">
-                <Header />
+                <Header loggedIn={loggedIn} email={email} />
                   <Router>
                     <Switch>
                       <ProtectedRoute path='/home' loggedIn={loggedIn} component={Main} onLogout={onLogout} />
                       <ProtectedRoute path='/profile' loggedIn={loggedIn} component={EditProfilePopup} />
                       <Route path='/signin'>
-                        <Login handleLogin={handleLogin} handleTooltip={handleTooltip} handleLogout={onLogout} />
+                        <Login handleLogin={handleLogin} handleTooltip={handleTooltip} handleLogout={onLogout} email={setEmail} setEmail={setEmail} />
                       </Route>
                       <Route path='/signup'>
-                        <Register handleLogin={handleLogin} handleTooltip={handleTooltip} handleLogout={onLogout} />
+                        <Register handleLogin={handleLogin} setEmail={setEmail} handleTooltip={handleTooltip} feedback={tooltipFeedback} handleLogout={onLogout} />
                       </Route>
                       <Route path='/tooltip'>
-                        <InfoTooltip />
+                        <InfoTooltip isOpen={isTooltipOpen} onClose={closeAllPopups} feedback={tooltipFeedback} loggedIn={loggedIn} />
                       </Route>
                       <Route>
                       <EditProfilePopup

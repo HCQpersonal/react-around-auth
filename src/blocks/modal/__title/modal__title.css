@@ -1,3 +1,6 @@
+@import url('./_credentials/modal__title_credentials.css');
+@import url('./_tooltip/modal__title_tooltip.css');
+
 .modal__title {
     font-weight: 900;
     font-size: 24px;

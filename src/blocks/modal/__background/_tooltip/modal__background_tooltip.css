@@ -1,3 +1,10 @@
 .modal__background_tooltip {
-    display: block;
+    align-content: space-between;
+    text-align: center;
+    color: black;
+    padding: 26px 36px;
+    align-items: center;
+}
+
+.modal__form_tooltip {
 }

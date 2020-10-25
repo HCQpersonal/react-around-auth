@@ -1,4 +1,5 @@
 /* @import url('./_disabled/modal__save-btn_disabled.css'); */
+@import url('./_removed/modal__save-btn_removed.css');
 
 .modal__save-btn {
     margin: 48px 36px 36.5px;
