@@ -11,3 +11,7 @@
 .overlay_visible {
     opacity: .5;
 }
+
+.overlay_remove {
+    display: none;
+}

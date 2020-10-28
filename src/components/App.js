@@ -48,7 +48,7 @@ function App(props) {
     } else {
       setLoggedIn(false);
     }
-  }, [loggedIn, history]);
+  }, [history] );
 
   const onLogout = () => {
     localStorage.removeItem('jwt');
@@ -155,20 +155,24 @@ function App(props) {
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
               <div className="page__container">
-                <Header loggedIn={loggedIn} email={email} />
+                <Header loggedIn={loggedIn} email={email} handleLogout={onLogout} />
                   <Router>
                     <Switch>
+                      <Route exact path='/'>
+                        {loggedIn ? <Redirect to="/around" /> : <Redirect to="/signin" />}
+                      </Route>
                       <ProtectedRoute path='/home' loggedIn={loggedIn} component={Main} onLogout={onLogout} />
                       <ProtectedRoute path='/profile' loggedIn={loggedIn} component={EditProfilePopup} />
                       <Route path='/signin'>
-                        <Login handleLogin={handleLogin} handleTooltip={handleTooltip} handleLogout={onLogout} email={setEmail} setEmail={setEmail} />
+                        <Login handleLogin={handleLogin} feedback={tooltipFeedback} handleLogout={onLogout} email={setEmail} setEmail={setEmail} />
                       </Route>
                       <Route path='/signup'>
                         <Register handleLogin={handleLogin} setEmail={setEmail} handleTooltip={handleTooltip} feedback={tooltipFeedback} handleLogout={onLogout} />
-                      </Route>
-                      <Route path='/tooltip'>
                         <InfoTooltip isOpen={isTooltipOpen} onClose={closeAllPopups} feedback={tooltipFeedback} loggedIn={loggedIn} />
                       </Route>
+                      {/* <Route path='/tooltip'>
+                        <InfoTooltip isOpen={isTooltipOpen} onClose={closeAllPopups} feedback={tooltipFeedback} loggedIn={loggedIn} />
+                      </Route> */}
                       <Route>
                       <EditProfilePopup
                           isOpen={isEditProfilePopupOpen}

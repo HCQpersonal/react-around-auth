@@ -1,9 +1,10 @@
+@import url('./_credentials/modal__input_credentials.css');
 @import url('./_error/modal__input_error.css');
 @import url('./_disabled/modal__input_disabled.css');
 
 .modal__input {
     margin: 54px 36px 0;
-    padding: 0;
+    padding-left: 0;
     font-size: 14px;
     line-height: 17px;
     color: #000000;

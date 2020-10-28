@@ -5,7 +5,7 @@ import * as auth from '../../utils/Auth';
 import { PopupWithForm } from '../popupwithform/PopupWithForm';
 import '../../blocks/credentials-page/credentials-page.css';
 
-function Login({ handleLogin }) {
+function Login({ loggedIn, handleLogin }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
@@ -18,11 +18,12 @@ function Login({ handleLogin }) {
         setMessage('')
     }
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (localStorage.getItem('jwt')) {
             history.push('/home');
+            setEmail(email)
         }
-    }, [history]);
+    }, [history, email]);
 
     function handleSubmit(e) {
                 e.preventDefault();
@@ -36,32 +37,24 @@ function Login({ handleLogin }) {
                     if (!data){
                         throw new Error('We cannot seem to find that user -- are you sure they exist?')
                     }
-                    // if (data.jwt){
-                    //     handleLogin();
-                    // }
+                    if (data.jwt){
+                        handleLogin();
+                    }
                 })
                 .then(resetForm)
                 .then(() => history.push('/home'))
                 .catch(err => setMessage(err.message));
             }
 
-    // function logout() {
-    //     localStorage.removeItem('jwt');
-    //     history.push('/signin');
-    // }
-
     return(
         <>
-            <Link className='credentials-page__swap-btn' to='/signup'>
-                Sign up
-            </Link>
             <PopupWithForm name='credentials' title='Log in' isOpen={true} text="Log in" onSubmit={handleSubmit} to='/home'>
-                <input type='email' id='email' placeholder='Email' value={email} onChange={e => setEmail(e.target.value)} required />
-                <input type='password' id='password' placeholder='Password' value={password} onChange={e => setPassword(e.target.value)}required />
-                {/* <button className='credentials-page__submit'  to='/home'>
-                    Log in
-                </button> */}
-                <Link className='credentials-page__swap-link' to='/signup'>
+                <Link className='credentials-page__swap-btn' to='/signup'>
+                    Sign up
+                </Link>
+                <input className='modal__input modal__input_credentials' type='email' id='email' placeholder='Email' value={email} onChange={e => setEmail(e.target.value)} required />
+                <input className='modal__input modal__input_credentials'  type='password' id='password' placeholder='Password' value={password} onChange={e => setPassword(e.target.value)} required />
+                <Link className='modal__background_credentials__swap-link' to='/signup'>
                     Not a member yet? Sign up here!
                 </Link>
             </PopupWithForm>
