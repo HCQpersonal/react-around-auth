@@ -170,7 +170,7 @@ function App(props) {
                       </Route>
                       <Route path='/signup'>
                         <Register handleLogin={handleLogin} setEmail={setEmail} handleTooltip={handleTooltip} feedback={tooltipFeedback} handleLogout={onLogout} />
-                        <InfoTooltip isOpen={isTooltipOpen} onClose={closeAllPopups} feedback={tooltipFeedback} loggedIn={loggedIn} />
+                        {/* <InfoTooltip isOpen={isTooltipOpen} onClose={closeAllPopups} feedback={tooltipFeedback} loggedIn={loggedIn} /> */}
                       </Route>
                       {/* <Route path='/tooltip'>
                         <InfoTooltip isOpen={isTooltipOpen} onClose={closeAllPopups} feedback={tooltipFeedback} loggedIn={loggedIn} />
