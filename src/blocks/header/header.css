@@ -1,4 +1,7 @@
 @import url('./__logo/header__logo.css');
+@import url('./__nav-email/header__nav-email.css');
+@import url('./__nav-logout/header__nav-logout.css');
+@import url('./__nav/header__nav.css');
 
 .header {
     border-bottom: 1px solid rgba(70, 70, 70, .7);
