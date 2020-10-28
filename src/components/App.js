@@ -117,6 +117,7 @@ function App(props) {
       setIsAddPlacePopupOpen(false);
       setIsEditProfilePopupOpen(false);
       setIsEditAvatarPopupOpen(false);
+      setIsTooltipOpen(false);
       setSelectedCard(null);
   }
 
@@ -164,7 +165,8 @@ function App(props) {
                       <ProtectedRoute path='/home' loggedIn={loggedIn} component={Main} onLogout={onLogout} />
                       <ProtectedRoute path='/profile' loggedIn={loggedIn} component={EditProfilePopup} />
                       <Route path='/signin'>
-                        <Login handleLogin={handleLogin} feedback={tooltipFeedback} handleLogout={onLogout} email={setEmail} setEmail={setEmail} />
+                        <Login handleLogin={handleLogin} feedback={tooltipFeedback} handleLogout={onLogout} email={setEmail} setEmail={setEmail} handleTooltip={handleTooltip} />
+                        {/* <InfoTooltip isOpen={isTooltipOpen} onClose={closeAllPopups} feedback={tooltipFeedback} loggedIn={loggedIn} /> */}
                       </Route>
                       <Route path='/signup'>
                         <Register handleLogin={handleLogin} setEmail={setEmail} handleTooltip={handleTooltip} feedback={tooltipFeedback} handleLogout={onLogout} />
