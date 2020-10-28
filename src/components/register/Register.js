@@ -55,7 +55,7 @@ function Register({ handleLogin, handleTooltip }) {
                 </Link>
                 <input className='modal__input modal__input_credentials' type='email' id='email' placeholder='Email' value={email} onChange={e => setEmail(e.target.value)} required />
                 <input className='modal__input modal__input_credentials' type='password' id='password' placeholder='Password' value={password} onChange={e => setPassword(e.target.value)} required />
-                <button className='modal__save-btn modal__save-btn_credentials' type="submit" >Sign up</button> 
+                <button className='modal__save-btn modal__save-btn_credentials' type="submit" to="/home">Sign up</button> 
                 <Link className='modal__background_credentials__swap-link' to='/signin'>
                     Already a member? Log in here!
                 </Link>
