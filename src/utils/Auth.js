@@ -1,22 +1,28 @@
 
 export const BASE_URL = 'https://register.nomoreparties.co';
 
-export const register = (email, password) => {
+export const register = (identifier, password) => {
     return fetch(`${BASE_URL}/signup`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email: identifier, password: password }),
     })
     .then((response) => {
-        debugger;
+        // debugger;
         return response.json();
     })
     .then((res)=> {
         return res;
     })
+    .then((data) => {
+        if (!data.message) {
+          localStorage.setItem('jwt', data.token);
+          return data;
+        }
+      })
     .catch((err) => console.log(err));
 }
 

@@ -26,6 +26,7 @@ function App(props) {
   const [currentUser, setCurrentUser] = React.useState(null);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [registered, setRegistered] = React.useState(false);
+  const [userEmail, setUserEmail] = React.useState(false);
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
@@ -38,7 +39,7 @@ function App(props) {
       auth.getContent('jwt')
       .then((res) => {
         setLoggedIn(true);
-        setEmail(res.data.email);
+        setUserEmail(res.data.email);
 
         history.push('/home');
       })
@@ -158,7 +159,7 @@ function App(props) {
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
               <div className="page__container">
-                <Header loggedIn={loggedIn} email={email} handleLogout={onLogout} />
+                <Header loggedIn={loggedIn} userEmail={userEmail} handleLogout={onLogout} />
                   <Router>
                     <Switch>
                       <Route exact path='/'>
@@ -166,11 +167,13 @@ function App(props) {
                       </Route>
                       <ProtectedRoute path='/profile' loggedIn={loggedIn} component={EditProfilePopup} />
                       <Route path='/signin'>
-                        <Login handleLogin={handleLogin} feedback={tooltipFeedback} handleLogout={onLogout} email={setEmail} setEmail={setEmail} handleTooltip={handleTooltip} />
+                        <Login handleLogin={handleLogin} feedback={tooltipFeedback} handleLogout={onLogout} userEmail={setUserEmail}
+              setUserEmail={setUserEmail} handleTooltip={handleTooltip} />
                       </Route>
                       <Route path='/signup'>
-                        <Register handleLogin={handleLogin} setEmail={setEmail} handleTooltip={handleTooltip} feedback={tooltipFeedback} handleLogout={onLogout} />
-                        {/* <InfoTooltip isOpen={isTooltipOpen} onClose={closeAllPopups} feedback={tooltipFeedback} loggedIn={loggedIn} /> */}
+                        <Register handleLogin={handleLogin} userEmail={setUserEmail}
+              setUserEmail={setUserEmail} handleTooltip={handleTooltip} feedback={tooltipFeedback} handleLogout={onLogout} />
+                        <InfoTooltip isOpen={isTooltipOpen} onClose={closeAllPopups} feedback={tooltipFeedback} loggedIn={loggedIn} />
                       </Route>
                       {/* <Route path='/tooltip'>
                         <InfoTooltip isOpen={isTooltipOpen} onClose={closeAllPopups} feedback={tooltipFeedback} loggedIn={loggedIn} />
