@@ -36,7 +36,7 @@ function Login({ loggedIn, handleLogin, userEmail, setUserEmail }) {
                 e.preventDefault();
         
                 if (!email || !password){
-                    return;
+                    throw new Error('400 - uh oh, something is off with those credentials!');
                 }
 
                 auth.authorize(email, password)
@@ -44,7 +44,7 @@ function Login({ loggedIn, handleLogin, userEmail, setUserEmail }) {
                     if (!data){
                         throw new Error('We cannot seem to find that user -- are you sure they exist?')
                     }
-                    if (data.jwt){
+                    if (data.token && data){
                         handleLogin();
                     }
                 })

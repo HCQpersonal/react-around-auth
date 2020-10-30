@@ -36,12 +36,10 @@ function App(props) {
     let jwt = localStorage.getItem('jwt');
 
     if (jwt) {
-      auth.getContent('jwt')
+      auth.getContent(jwt)
       .then((res) => {
         setLoggedIn(true);
         setUserEmail(res.data.email);
-
-        history.push('/home');
       })
       .catch((err) => {
         console.log(err);
@@ -49,7 +47,7 @@ function App(props) {
     } else {
       setLoggedIn(false);
     }
-  }, [history, loggedIn] );
+  }, [] );
 
   const onLogout = () => {
     let jwt = localStorage.getItem('jwt');
@@ -141,7 +139,7 @@ function App(props) {
         }).catch((err) => {
           console.log(err);
         });
-    }, [loggedIn]);
+    }, []);
 
     React.useEffect(() => {
       // setIsLoading(true);
@@ -151,7 +149,7 @@ function App(props) {
           }).catch((err) => {
               console.log(err);
           });
-      }, [loggedIn]);
+      }, []);
 
 
   return (
@@ -168,11 +166,11 @@ function App(props) {
                       <ProtectedRoute path='/profile' loggedIn={loggedIn} component={EditProfilePopup} />
                       <Route path='/signin'>
                         <Login handleLogin={handleLogin} feedback={tooltipFeedback} handleLogout={onLogout} userEmail={setUserEmail}
-              setUserEmail={setUserEmail} handleTooltip={handleTooltip} />
+                          setUserEmail={setUserEmail} handleTooltip={handleTooltip} />
                       </Route>
                       <Route path='/signup'>
                         <Register handleLogin={handleLogin} userEmail={setUserEmail}
-              setUserEmail={setUserEmail} handleTooltip={handleTooltip} feedback={tooltipFeedback} handleLogout={onLogout} />
+                          setUserEmail={setUserEmail} handleTooltip={handleTooltip} feedback={tooltipFeedback} handleLogout={onLogout} />
                         <InfoTooltip isOpen={isTooltipOpen} onClose={closeAllPopups} feedback={tooltipFeedback} loggedIn={loggedIn} />
                       </Route>
                       {/* <Route path='/tooltip'>

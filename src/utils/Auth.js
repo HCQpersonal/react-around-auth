@@ -17,12 +17,6 @@ export const register = (identifier, password) => {
     .then((res)=> {
         return res;
     })
-    .then((data) => {
-        if (!data.message) {
-          localStorage.setItem('jwt', data.token);
-          return data;
-        }
-      })
     .catch((err) => console.log(err));
 }
 
@@ -37,8 +31,8 @@ export const authorize = (email, password) => {
     })
     .then((response => response.json()))
     .then((data) => {
-        if (data.jwt){
-            localStorage.setItem('jwt', data.jwt);
+        if (!data.message){
+            localStorage.setItem('jwt', data.token);
             return data;
         } else {
             return;

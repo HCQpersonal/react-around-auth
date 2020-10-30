@@ -32,6 +32,7 @@ function Register({ handleLogin, handleTooltip }) {
               }})
               .then((res) => {
                 setRegistered(true);
+                history.push('/signin');
               })
               .then((res) => {
                 handleTooltip('success');
