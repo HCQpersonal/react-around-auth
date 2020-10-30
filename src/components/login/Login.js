@@ -25,9 +25,15 @@ function Login({ loggedIn, handleLogin }) {
         }
     }, [history, email]);
 
+    // React.useEffect(() => {
+    //     if (loggedIn) {
+    //       history.push('/around');
+    //       setEmail(email);
+    //     }
+    //   });
+
     function handleSubmit(e) {
                 e.preventDefault();
-                debugger;
         
                 if (!email || !password){
                     return;
@@ -55,7 +61,7 @@ function Login({ loggedIn, handleLogin }) {
                 </Link>
                 <input className='modal__input modal__input_credentials' type='email' id='email' placeholder='Email' value={email} onChange={e => setEmail(e.target.value)} required />
                 <input className='modal__input modal__input_credentials'  type='password' id='password' placeholder='Password' value={password} onChange={e => setPassword(e.target.value)} required />
-                <button className='modal__save-btn modal__save-btn_credentials' type="submit" handleLogin={handleSubmit} to="home">Log in</button> 
+                {/* <button className='modal__save-btn modal__save-btn_credentials' type="submit" handleLogin={handleSubmit} to="home">Log in</button>  */}
                 <Link className='modal__background_credentials__swap-link' to='/signup'>
                     Not a member yet? Sign up here!
                 </Link>

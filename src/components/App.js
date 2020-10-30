@@ -48,9 +48,11 @@ function App(props) {
     } else {
       setLoggedIn(false);
     }
-  }, [history] );
+  }, [history, loggedIn] );
 
   const onLogout = () => {
+    let jwt = localStorage.getItem('jwt');
+
     localStorage.removeItem('jwt');
     setLoggedIn(false);
     history.push('/signin');
@@ -138,7 +140,7 @@ function App(props) {
         }).catch((err) => {
           console.log(err);
         });
-    }, []);
+    }, [loggedIn]);
 
     React.useEffect(() => {
       // setIsLoading(true);
@@ -148,7 +150,7 @@ function App(props) {
           }).catch((err) => {
               console.log(err);
           });
-      }, []);  
+      }, [loggedIn]);
 
 
   return (
@@ -160,13 +162,11 @@ function App(props) {
                   <Router>
                     <Switch>
                       <Route exact path='/'>
-                        {loggedIn ? <Redirect to="/around" /> : <Redirect to="/signin" />}
+                        {loggedIn ? <Redirect to="/home" /> : <Redirect to="/signin" />}
                       </Route>
-                      <ProtectedRoute path='/home' loggedIn={loggedIn} component={Main} onLogout={onLogout} />
                       <ProtectedRoute path='/profile' loggedIn={loggedIn} component={EditProfilePopup} />
                       <Route path='/signin'>
                         <Login handleLogin={handleLogin} feedback={tooltipFeedback} handleLogout={onLogout} email={setEmail} setEmail={setEmail} handleTooltip={handleTooltip} />
-                        {/* <InfoTooltip isOpen={isTooltipOpen} onClose={closeAllPopups} feedback={tooltipFeedback} loggedIn={loggedIn} /> */}
                       </Route>
                       <Route path='/signup'>
                         <Register handleLogin={handleLogin} setEmail={setEmail} handleTooltip={handleTooltip} feedback={tooltipFeedback} handleLogout={onLogout} />
@@ -175,7 +175,7 @@ function App(props) {
                       {/* <Route path='/tooltip'>
                         <InfoTooltip isOpen={isTooltipOpen} onClose={closeAllPopups} feedback={tooltipFeedback} loggedIn={loggedIn} />
                       </Route> */}
-                      <Route>
+                      <Route path='/home'>
                       <EditProfilePopup
                           isOpen={isEditProfilePopupOpen}
                           onClose={closeAllPopups}
@@ -191,7 +191,8 @@ function App(props) {
                           onClose={closeAllPopups}
                           onAddNewCard={handleAddPlace}
                       />
-                      <Main 
+                      <ProtectedRoute path='/home' component={Main}
+                          loggedIn={loggedIn}
                           onEditProfile={handleEditProfileClick}
                           onAddPlace={handleAddPlaceClick}
                           onEditAvatar={handleEditAvatarClick}
