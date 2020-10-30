@@ -159,8 +159,8 @@ function App(props) {
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
               <div className="page__container">
+              <Router>
                 <Header loggedIn={loggedIn} userEmail={userEmail} handleLogout={onLogout} />
-                  <Router>
                     <Switch>
                       <Route exact path='/'>
                         {loggedIn ? <Redirect to="/home" /> : <Redirect to="/signin" />}
@@ -211,6 +211,7 @@ function App(props) {
                       />
                       <Footer />
                     </Route>
+                    <Redirect from='*' to='/' />
                   </Switch>
                 </Router>
               </div>
