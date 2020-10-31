@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch, useHistory, Redirect, withRouter } from 'react-router-dom';
 import { api } from '../utils/Api';
 import { AddPlacePopup } from './addplacepopup/AddPlacePopup';
@@ -52,7 +52,7 @@ function App(props) {
   const onLogout = () => {
     let jwt = localStorage.getItem('jwt');
 
-    localStorage.removeItem('jwt');
+    localStorage.removeItem(jwt);
     setLoggedIn(false);
     history.push('/signin');
   }
@@ -165,17 +165,13 @@ function App(props) {
                       </Route>
                       <ProtectedRoute path='/profile' loggedIn={loggedIn} component={EditProfilePopup} />
                       <Route path='/signin'>
-                        <Login handleLogin={handleLogin} feedback={tooltipFeedback} handleLogout={onLogout} userEmail={setUserEmail}
-                          setUserEmail={setUserEmail} handleTooltip={handleTooltip} />
+                        <Login handleLogin={handleLogin} feedback={tooltipFeedback} handleLogout={onLogout} userEmail={userEmail} setUserEmail={setUserEmail} handleTooltip={handleTooltip} />
                       </Route>
                       <Route path='/signup'>
                         <Register handleLogin={handleLogin} userEmail={setUserEmail}
                           setUserEmail={setUserEmail} handleTooltip={handleTooltip} feedback={tooltipFeedback} handleLogout={onLogout} />
                         <InfoTooltip isOpen={isTooltipOpen} onClose={closeAllPopups} feedback={tooltipFeedback} loggedIn={loggedIn} />
                       </Route>
-                      {/* <Route path='/tooltip'>
-                        <InfoTooltip isOpen={isTooltipOpen} onClose={closeAllPopups} feedback={tooltipFeedback} loggedIn={loggedIn} />
-                      </Route> */}
                       <Route path='/home'>
                       <EditProfilePopup
                           isOpen={isEditProfilePopupOpen}

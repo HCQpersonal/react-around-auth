@@ -1,6 +1,6 @@
 // for user authorization
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Link, useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import * as auth from '../../utils/Auth';
 import { PopupWithForm } from '../popupwithform/PopupWithForm';
 import '../../blocks/credentials-page/credentials-page.css';
@@ -15,7 +15,8 @@ function Login({ loggedIn, handleLogin, userEmail, setUserEmail }) {
     const resetForm = (e) => {
         setEmail('')
         setPassword('')
-        setMessage('')
+        // debugger;
+        // setMessage('')
     }
 
     React.useEffect(() => {
@@ -33,25 +34,30 @@ function Login({ loggedIn, handleLogin, userEmail, setUserEmail }) {
     });
 
     function handleSubmit(e) {
-                e.preventDefault();
-        
-                if (!email || !password){
-                    throw new Error('400 - uh oh, something is off with those credentials!');
-                }
+        e.preventDefault();
+        const [email, password] = [e.target.email.value, e.target.password.value];
 
-                auth.authorize(email, password)
-                .then((data) => {
-                    if (!data){
-                        throw new Error('We cannot seem to find that user -- are you sure they exist?')
-                    }
-                    if (data.token && data){
-                        handleLogin();
-                    }
-                })
-                .then(resetForm)
-                .then(() => history.push('/home'))
-                .catch(err => setMessage(err.message));
+        auth.authorize(email, password)
+        .then((data) => {
+            if (data.token && data){
+                handleLogin();
+            } else {
+                resetForm();
+            if (!data){
+                throw new Error('We cannot seem to find that user -- are you sure they exist?')
             }
+            if (!email || !password){
+                throw new Error('400 - uh oh, something is off with those credentials!');
+            }
+        }
+        })
+        .then(() => {
+            // debugger;
+            resetForm();
+        })
+        .then(() => history.push('/home'))
+        .catch(err => setMessage(err.message));
+    }
 
     return(
         <>
