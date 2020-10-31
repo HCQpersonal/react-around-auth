@@ -5,6 +5,8 @@ import { AddPlacePopup } from './addplacepopup/AddPlacePopup';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { EditAvatarPopup } from './editavatarpopup/EditAvatarPopup';
 import { EditProfilePopup } from './editprofilepopup/EditProfilePopup';
+import { PopupWithForm } from './popupwithform/PopupWithForm';
+import PopupWithImage from './popupwithimage/PopupWithImage'; 
 import Footer from './footer/Footer';
 import Header from './header/Header';
 import InfoTooltip from './infotooltip/InfoTooltip';
@@ -19,6 +21,8 @@ function App(props) {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isDeletePlacePopupOpen, setIsDeletePlacePopupOpen] = React.useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
   const [isTooltipOpen, setIsTooltipOpen] = React.useState(false);
   const [tooltipFeedback, setTooltipFeedback] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(null);
@@ -33,7 +37,7 @@ function App(props) {
   const history = useHistory();
 
   React.useEffect(() => {
-    let jwt = localStorage.getItem('jwt');
+    const jwt = localStorage.getItem('jwt');
 
     if (jwt) {
       auth.getContent(jwt)
@@ -67,6 +71,14 @@ function App(props) {
 
   function handleAddPlaceClick() {
       setIsAddPlacePopupOpen(true);
+  }
+
+  // function handleDeletePlaceClick() {
+  //   setIsDeletePlacePopupOpen(true);
+  // }
+
+  function handleImageClick() {
+    setIsImagePopupOpen(true);
   }
 
   function handleCardClick(card) {
@@ -104,6 +116,9 @@ function App(props) {
     }
 
     function handleCardDelete(card) {
+      // setIsDeletePlacePopupOpen(true);
+
+    
         api.deleteCard(card._id).then(() => {
             setCards(cards.filter((c) => c._id !== card._id));
         });
@@ -118,6 +133,8 @@ function App(props) {
       setIsAddPlacePopupOpen(false);
       setIsEditProfilePopupOpen(false);
       setIsEditAvatarPopupOpen(false);
+      setIsDeletePlacePopupOpen(false);
+      setIsImagePopupOpen(false);
       setIsTooltipOpen(false);
       setSelectedCard(null);
   }
@@ -129,7 +146,6 @@ function App(props) {
   function handleTooltip(feedback) {
       setTooltipFeedback(feedback);
       setIsTooltipOpen(true);
-      // history.push('/signin');
   }
   
   React.useEffect(() => {
@@ -160,6 +176,7 @@ function App(props) {
               <div className="page__container">
               <Router>
                 <Header loggedIn={loggedIn} userEmail={userEmail} handleLogout={onLogout} />
+                <InfoTooltip isOpen={isTooltipOpen} onClose={closeAllPopups} feedback={tooltipFeedback} loggedIn={loggedIn} />
                     <Switch>
                       <Route exact path='/'>
                         {loggedIn ? <Redirect to="/home" /> : <Redirect to="/signin" />}
@@ -171,7 +188,6 @@ function App(props) {
                       <Route path='/signup'>
                         <Register handleLogin={handleLogin} userEmail={setUserEmail}
                           setUserEmail={setUserEmail} handleTooltip={handleTooltip} feedback={tooltipFeedback} handleLogout={onLogout} />
-                        <InfoTooltip isOpen={isTooltipOpen} onClose={closeAllPopups} feedback={tooltipFeedback} loggedIn={loggedIn} />
                       </Route>
                       <Route path='/home'>
                       <EditProfilePopup
@@ -189,10 +205,14 @@ function App(props) {
                           onClose={closeAllPopups}
                           onAddNewCard={handleAddPlace}
                       />
+                      <PopupWithForm name="delete" title="Are you sure?" isOpen={isDeletePlacePopupOpen} onClose={closeAllPopups} onCardDelete={handleCardDelete} text="Yes" />
+                      <PopupWithImage isOpen={isImagePopupOpen} onClose={closeAllPopups} card={props.selectedCard} />
                       <ProtectedRoute path='/home' component={Main}
                           loggedIn={loggedIn}
                           onEditProfile={handleEditProfileClick}
                           onAddPlace={handleAddPlaceClick}
+                          // onDeletePlace={handleDeletePlaceClick}
+                          onPopImage={handleImageClick}
                           onEditAvatar={handleEditAvatarClick}
                           onCardClick={handleCardClick}
                           onClosePopups={closeAllPopups}
@@ -200,6 +220,7 @@ function App(props) {
                           onCardDelete={handleCardDelete}
                           isEditProfilePopupOpen={isEditProfilePopupOpen}
                           isAddPlacePopupOpen={isAddPlacePopupOpen}
+                          isDeletePlacePopupOpen={isDeletePlacePopupOpen}
                           isEditAvatarPopupOpen={isEditAvatarPopupOpen}
                           selectedCard={selectedCard}
                           cards={cards}

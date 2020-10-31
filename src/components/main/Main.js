@@ -1,8 +1,7 @@
 import React from 'react';
 import Card from '../card/Card';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { PopupWithForm } from '../popupwithform/PopupWithForm';
-import PopupWithImage from '../popupwithimage/PopupWithImage';
+
 
 export default function Main(props) {
     const currentUser = React.useContext(CurrentUserContext);
@@ -31,8 +30,6 @@ export default function Main(props) {
                     ))}
                 </ul>
             </div>
-            <PopupWithForm name="delete" title="Are you sure?" isOpen={false} onClose={props.onClosePopups} text="Yes" />
-            <PopupWithImage onClose={props.onClosePopups} card={props.selectedCard} />
         </>
         );
     }
