@@ -78,9 +78,9 @@ function App(props) {
     setIsDeletePlacePopupOpen(true);
   }
 
-  function handleImageClick() {
-    setIsImagePopupOpen(true);
-  }
+  // function handleImageClick() {
+  //   setIsImagePopupOpen(true);
+  // }
 
   function handleCardClick(card) {
       setSelectedCard(card);
@@ -176,7 +176,7 @@ function App(props) {
               <Router>
                 <Header loggedIn={loggedIn} userEmail={userEmail} handleLogout={onLogout} />
                 <InfoTooltip isOpen={isTooltipOpen} onClose={closeAllPopups} feedback={tooltipFeedback} loggedIn={loggedIn} />
-                <PopupWithForm name="delete" title="Are you sure?" isOpen={isDeletePlacePopupOpen} onClose={closeAllPopups} onCardDelete={handleCardDelete} text="Yes" />
+                <PopupWithForm name="delete" title="Are you sure?" isOpen={isDeletePlacePopupOpen} onClose={closeAllPopups} onDeletePlace={handleDeletePlaceClick} text="Yes" />
                 <PopupWithImage isOpen={isImagePopupOpen} onClose={closeAllPopups} card={selectedCard} />
                     <Switch>
                       <Route exact path='/'>
@@ -210,10 +210,11 @@ function App(props) {
                             loggedIn={loggedIn}
                             onEditProfile={handleEditProfileClick}
                             onAddPlace={handleAddPlaceClick}
-                            onDeletePlace={handleDeletePlaceClick}
-                            onPopImage={handleImageClick}
+                            // onDeletePlace={handleDeletePlaceClick}
+                            // onPopImage={handleImageClick}
                             onEditAvatar={handleEditAvatarClick}
                             onCardClick={handleCardClick}
+                            onCardDelete={handleDeletePlaceClick}
                             onClosePopups={closeAllPopups}
                             onCardLike={handleCardLike}
                             isEditProfilePopupOpen={isEditProfilePopupOpen}

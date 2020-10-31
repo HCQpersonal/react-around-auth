@@ -22,8 +22,7 @@ export default function Card(props) {
         <li className="grid__photos-item">
             <div className="grid__photos-img-area">
                 <button className={cardDeleteButtonClassName} onClick={() => {
-                    props.onDeletePlace(props.card);
-                    // props.onCardDelete(props.card);
+                    props.onCardDelete(props.card);
                 }}>
                 </button>
                 <div className="grid__photos-image grid__photos-image_sequoia"
