@@ -1,21 +1,19 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, useHistory, Redirect, withRouter } from 'react-router-dom';
 import { api } from '../utils/Api';
-import { AddPlacePopup } from './addplacepopup/AddPlacePopup';
+import { AddPlacePopup } from './AddPlacePopup';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { Card } from './card/Card';
-import { EditAvatarPopup } from './editavatarpopup/EditAvatarPopup';
-import { EditProfilePopup } from './editprofilepopup/EditProfilePopup';
-import { PopupWithForm } from './popupwithform/PopupWithForm';
-import PopupWithImage from './popupwithimage/PopupWithImage'; 
-import Footer from './footer/Footer';
-import Header from './header/Header';
-import InfoTooltip from './infotooltip/InfoTooltip';
-import Login from './login/Login';
-import Main from './main/Main';
-import ProtectedRoute from './protectedroute/ProtectedRoute';
-import Register from './register/Register';
-import './../index.css';
+import { EditAvatarPopup } from './EditAvatarPopup';
+import { EditProfilePopup } from './EditProfilePopup';
+import { PopupWithForm } from './PopupWithForm';
+import PopupWithImage from './PopupWithImage'; 
+import Footer from './Footer';
+import Header from './Header';
+import InfoTooltip from './InfoTooltip';
+import Login from './Login';
+import Main from './Main';
+import ProtectedRoute from './ProtectedRoute';
+import Register from './Register';
 import * as auth from '../utils/Auth';
 
 function App(props) {
@@ -55,8 +53,6 @@ function App(props) {
   }, [] );
 
   const onLogout = () => {
-    let jwt = localStorage.getItem('jwt');
-
     localStorage.removeItem('jwt');
     setLoggedIn(false);
     history.push('/signin');
@@ -77,10 +73,6 @@ function App(props) {
   function handleDeletePlaceClick() {
     setIsDeletePlacePopupOpen(true);
   }
-
-  // function handleImageClick() {
-  //   setIsImagePopupOpen(true);
-  // }
 
   function handleCardClick(card) {
       setSelectedCard(card);
@@ -210,8 +202,6 @@ function App(props) {
                             loggedIn={loggedIn}
                             onEditProfile={handleEditProfileClick}
                             onAddPlace={handleAddPlaceClick}
-                            // onDeletePlace={handleDeletePlaceClick}
-                            // onPopImage={handleImageClick}
                             onEditAvatar={handleEditAvatarClick}
                             onCardClick={handleCardClick}
                             onCardDelete={handleDeletePlaceClick}

@@ -1,6 +1,6 @@
 import React from 'react';
-import Nav from '../nav/Nav';
-import headerLogo from '../../images/logoAroundUS.png';	
+import Nav from './Nav';
+import headerLogo from '../images/logoAroundUS.png';	
 
 
 export default function Header({ loggedIn, userEmail, handleLogout }) {	

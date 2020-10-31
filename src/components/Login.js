@@ -1,9 +1,8 @@
 // for user authorization
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import * as auth from '../../utils/Auth';
-import { PopupWithForm } from '../popupwithform/PopupWithForm';
-import '../../blocks/credentials-page/credentials-page.css';
+import * as auth from '../utils/Auth';
+import { PopupWithForm } from './PopupWithForm';
 
 function Login({ loggedIn, handleLogin, userEmail, setUserEmail }) {
     const [email, setEmail] = useState('');

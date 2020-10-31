@@ -1,9 +1,8 @@
 // // for user registration
 import React, { useState } from 'react';
 import { Link, useHistory} from 'react-router-dom';
-import { PopupWithForm } from '../popupwithform/PopupWithForm';
-import * as auth from '../../utils/Auth';
-import '../../blocks/credentials-page/credentials-page.css';
+import { PopupWithForm } from './PopupWithForm';
+import * as auth from '../utils/Auth';
 
 function Register({ handleLogin, handleTooltip }) {
     const [email, setEmail] = useState('');

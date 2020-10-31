@@ -1,8 +1,7 @@
 import React from 'react';
-import { PopupWithForm } from '../popupwithform/PopupWithForm';
-import successIcon from '../../images/successIcon.png';
-import failIcon from '../../images/failIcon.png';
-import '../../blocks/modal/__background/_tooltip/modal__background_tooltip.css';
+import { PopupWithForm } from './PopupWithForm';
+import successIcon from '../images/successIcon.png';
+import failIcon from '../images/failIcon.png';
 
 function InfoTooltip(props) {
     return (
