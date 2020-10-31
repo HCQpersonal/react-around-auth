@@ -1,9 +1,8 @@
 // // for user registration
-import React, { useEffect, useState } from 'react';
-import { Link, useHistory, withRouter } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useHistory} from 'react-router-dom';
 import { PopupWithForm } from '../popupwithform/PopupWithForm';
 import * as auth from '../../utils/Auth';
-// import { render } from '@testing-library/react';
 import '../../blocks/credentials-page/credentials-page.css';
 
 function Register({ handleLogin, handleTooltip }) {
@@ -31,15 +30,13 @@ function Register({ handleLogin, handleTooltip }) {
                 throw new Error(`${res.message ? res.message : res.error}`);
               }})
               .then((res) => {
+                history.push('/signin');
                 setRegistered(true);
               })
               .then((res) => {
                 handleTooltip('success');
                 return res;
               })
-            //   .then((res) => {
-            //     history.push('/signin');
-            //   })
             .then(resetForm)
             .catch(err => {
               console.log(err)

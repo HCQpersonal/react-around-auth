@@ -13,7 +13,6 @@ export function PopupWithForm(props) {
                         <h3 className={`modal__title modal__title_${props.name}`}>{props.title}</h3>
                         {props.children}
                         <button className={`modal__save-btn modal__save-btn_${props.name}` + (!props.name.startsWith('tooltip') ? ' modal__save-btn' : ' modal__save-btn_removed')} type="submit" >{props.text}</button> 
-                        {/* onClick={this.handleSubmit} */}
                     </form>
                 </div>
             </div>
