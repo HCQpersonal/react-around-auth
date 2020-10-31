@@ -52,7 +52,7 @@ function App(props) {
   const onLogout = () => {
     let jwt = localStorage.getItem('jwt');
 
-    localStorage.removeItem(jwt);
+    localStorage.removeItem('jwt');
     setLoggedIn(false);
     history.push('/signin');
   }
@@ -129,6 +129,7 @@ function App(props) {
   function handleTooltip(feedback) {
       setTooltipFeedback(feedback);
       setIsTooltipOpen(true);
+      // history.push('/signin');
   }
   
   React.useEffect(() => {
