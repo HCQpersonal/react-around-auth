@@ -11,7 +11,6 @@ export const register = (identifier, password) => {
         body: JSON.stringify({ email: identifier, password: password }),
     })
     .then((response) => {
-        // debugger;
         return response.json();
     })
     .then((res)=> {

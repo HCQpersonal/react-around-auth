@@ -8,6 +8,8 @@
     padding-bottom: 40px;
     width: 882px;
     margin: 0 199px;
+    display: flex;
+    justify-content: space-between;
 }
 
 @media screen and (max-width: 320px) {

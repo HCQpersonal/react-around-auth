@@ -2,5 +2,7 @@
     font-size: 18px;
     line-height: 22px;
     list-style: none;
-
+    text-align: right;
+    display: flex;
+    margin-top: 51px;
 }
