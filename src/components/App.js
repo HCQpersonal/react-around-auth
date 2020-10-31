@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch, useHistory, Redirect, withRoute
 import { api } from '../utils/Api';
 import { AddPlacePopup } from './addplacepopup/AddPlacePopup';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { Card } from './card/Card';
 import { EditAvatarPopup } from './editavatarpopup/EditAvatarPopup';
 import { EditProfilePopup } from './editprofilepopup/EditProfilePopup';
 import { PopupWithForm } from './popupwithform/PopupWithForm';
@@ -73,9 +74,9 @@ function App(props) {
       setIsAddPlacePopupOpen(true);
   }
 
-  // function handleDeletePlaceClick() {
-  //   setIsDeletePlacePopupOpen(true);
-  // }
+  function handleDeletePlaceClick() {
+    setIsDeletePlacePopupOpen(true);
+  }
 
   function handleImageClick() {
     setIsImagePopupOpen(true);
@@ -115,13 +116,11 @@ function App(props) {
         });
     }
 
-    function handleCardDelete(card) {
-      // setIsDeletePlacePopupOpen(true);
-
-    
+    function handleCardDelete(card) {    
         api.deleteCard(card._id).then(() => {
             setCards(cards.filter((c) => c._id !== card._id));
         });
+        closeAllPopups();
     }
   
     React.useEffect(() => {
@@ -192,41 +191,40 @@ function App(props) {
                           setUserEmail={setUserEmail} handleTooltip={handleTooltip} feedback={tooltipFeedback} handleLogout={onLogout} />
                       </Route>
                       <Route path='/home'>
-                      <EditProfilePopup
-                          isOpen={isEditProfilePopupOpen}
-                          onClose={closeAllPopups}
-                          onUpdateUser={handleUpdateUserInfo}
-                      />           
-                      <EditAvatarPopup
-                          isOpen={isEditAvatarPopupOpen}
-                          onClose={closeAllPopups}
-                          onUpdateAvatar={handleUpdateAvatar}
-                      />
-                      <AddPlacePopup
-                          isOpen={isAddPlacePopupOpen}
-                          onClose={closeAllPopups}
-                          onAddNewCard={handleAddPlace}
-                      />
-                      <ProtectedRoute path='/home' component={Main}
-                          loggedIn={loggedIn}
-                          onEditProfile={handleEditProfileClick}
-                          onAddPlace={handleAddPlaceClick}
-                          // onDeletePlace={handleDeletePlaceClick}
-                          onPopImage={handleImageClick}
-                          onEditAvatar={handleEditAvatarClick}
-                          onCardClick={handleCardClick}
-                          onClosePopups={closeAllPopups}
-                          onCardLike={handleCardLike}
-                          onCardDelete={handleCardDelete}
-                          isEditProfilePopupOpen={isEditProfilePopupOpen}
-                          isAddPlacePopupOpen={isAddPlacePopupOpen}
-                          isDeletePlacePopupOpen={isDeletePlacePopupOpen}
-                          isEditAvatarPopupOpen={isEditAvatarPopupOpen}
-                          isImagePopupOpen={isImagePopupOpen}
-                          selectedCard={selectedCard}
-                          cards={cards}
-                      />
-                      <Footer />
+                        <EditProfilePopup
+                            isOpen={isEditProfilePopupOpen}
+                            onClose={closeAllPopups}
+                            onUpdateUser={handleUpdateUserInfo}
+                        />
+                        <EditAvatarPopup
+                            isOpen={isEditAvatarPopupOpen}
+                            onClose={closeAllPopups}
+                            onUpdateAvatar={handleUpdateAvatar}
+                        />
+                        <AddPlacePopup
+                            isOpen={isAddPlacePopupOpen}
+                            onClose={closeAllPopups}
+                            onAddNewCard={handleAddPlace}
+                        />
+                        <ProtectedRoute path='/home' component={Main}
+                            loggedIn={loggedIn}
+                            onEditProfile={handleEditProfileClick}
+                            onAddPlace={handleAddPlaceClick}
+                            onDeletePlace={handleDeletePlaceClick}
+                            onPopImage={handleImageClick}
+                            onEditAvatar={handleEditAvatarClick}
+                            onCardClick={handleCardClick}
+                            onClosePopups={closeAllPopups}
+                            onCardLike={handleCardLike}
+                            isEditProfilePopupOpen={isEditProfilePopupOpen}
+                            isAddPlacePopupOpen={isAddPlacePopupOpen}
+                            isDeletePlacePopupOpen={isDeletePlacePopupOpen}
+                            isEditAvatarPopupOpen={isEditAvatarPopupOpen}
+                            isImagePopupOpen={isImagePopupOpen}
+                            selectedCard={selectedCard}
+                            cards={cards}
+                        />
+                        <Footer />
                     </Route>
                     <Redirect from='*' to='/' />
                   </Switch>

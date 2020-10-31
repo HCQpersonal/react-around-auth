@@ -1,6 +1,11 @@
 import React from 'react';
 
 export function PopupWithForm(props) {
+    // function handleSubmit(e) {
+    //     e.preventDefault();
+    //     props.onCardDelete(props.card)
+    // }
+
     return(
     <>
         <div className={'overlay' + (props.isOpen && props.name.startsWith('credentials') ? ' overlay_remove' : ' overlay')}></div>
