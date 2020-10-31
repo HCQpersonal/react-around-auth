@@ -10,14 +10,12 @@ class Api {
         return fetch(`${this.server}/cards`, {
             headers: this.headers,
         }).then(res => res.ok ? res.json() : Promise.reject('Error: ' + res.status))
-        .catch(console.log);
     }
 
     getUserInfo() {
         return fetch(`${this.server}/users/me/`, {
             headers: this.headers,
-        }).then(res => res.ok ? res.json() : Promise.reject('Error: ' + res.status))
-        .catch(console.log);
+        }).then(res => res.ok ? res.json() : Promise.reject('Error: ' + res.status));
     }
 
     getAppInfo() {
@@ -33,7 +31,6 @@ class Api {
                 link: imageUrl,
             }),
         }).then(res => res.ok ? res.json() : Promise.reject('Error: ' + res.status))
-        .catch(console.log('Problem fetching addCard API results'));
     }
 
     toggleLike(cardId, isLiked) {
@@ -67,7 +64,7 @@ class Api {
             if (res.ok) {
                 return res.json();
             }
-        }).catch(console.log);
+        });
     }
 
     setUserAvatar(res) {
