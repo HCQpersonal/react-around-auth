@@ -177,6 +177,8 @@ function App(props) {
               <Router>
                 <Header loggedIn={loggedIn} userEmail={userEmail} handleLogout={onLogout} />
                 <InfoTooltip isOpen={isTooltipOpen} onClose={closeAllPopups} feedback={tooltipFeedback} loggedIn={loggedIn} />
+                <PopupWithForm name="delete" title="Are you sure?" isOpen={isDeletePlacePopupOpen} onClose={closeAllPopups} onCardDelete={handleCardDelete} text="Yes" />
+                <PopupWithImage isOpen={isImagePopupOpen} onClose={closeAllPopups} card={selectedCard} />
                     <Switch>
                       <Route exact path='/'>
                         {loggedIn ? <Redirect to="/home" /> : <Redirect to="/signin" />}
@@ -205,8 +207,6 @@ function App(props) {
                           onClose={closeAllPopups}
                           onAddNewCard={handleAddPlace}
                       />
-                      <PopupWithForm name="delete" title="Are you sure?" isOpen={isDeletePlacePopupOpen} onClose={closeAllPopups} onCardDelete={handleCardDelete} text="Yes" />
-                      <PopupWithImage isOpen={isImagePopupOpen} onClose={closeAllPopups} card={props.selectedCard} />
                       <ProtectedRoute path='/home' component={Main}
                           loggedIn={loggedIn}
                           onEditProfile={handleEditProfileClick}
@@ -222,6 +222,7 @@ function App(props) {
                           isAddPlacePopupOpen={isAddPlacePopupOpen}
                           isDeletePlacePopupOpen={isDeletePlacePopupOpen}
                           isEditAvatarPopupOpen={isEditAvatarPopupOpen}
+                          isImagePopupOpen={isImagePopupOpen}
                           selectedCard={selectedCard}
                           cards={cards}
                       />
