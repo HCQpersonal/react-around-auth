@@ -7,6 +7,8 @@
 @import url('./_photo/modal_photo.css');
 @import url('./__save-btn/modal__save-btn.css');
 @import url('./__title/modal__title.css');
+@import url('./_tooltip/modal_tooltip.css');
+@import url('./_credentials/modal_credentials.css');
 
  .modal {
     position: fixed;
