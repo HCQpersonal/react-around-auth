@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Route, Switch, useHistory, Redirect, withRouter } from 'react-router-dom';
 import { api } from '../utils/Api';
 import { AddPlacePopup } from './AddPlacePopup';
