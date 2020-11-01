@@ -4,18 +4,11 @@ import { Link, useHistory } from 'react-router-dom';
 import * as auth from '../utils/Auth';
 import { PopupWithForm } from './PopupWithForm';
 
-function Login({ loggedIn, handleLogin, userEmail, setUserEmail }) {
+function Login({ loggedIn, handleLogin, userEmail, setUserEmail, handleLoginSubmit }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [message, setMessage] = useState('');
 
     const history = useHistory();
-
-    const resetForm = (e) => {
-        setEmail('')
-        setPassword('')
-        // setMessage('')
-    }
 
     React.useEffect(() => {
         if (localStorage.getItem('jwt')) {
@@ -31,35 +24,11 @@ function Login({ loggedIn, handleLogin, userEmail, setUserEmail }) {
         }
     });
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        const [email, password] = [e.target.email.value, e.target.password.value];
-
-        auth.authorize(email, password)
-        .then((data) => {
-            if (data.token && data){
-                handleLogin();
-            } else {
-                resetForm();
-            if (!data){
-                throw new Error('We cannot seem to find that user -- are you sure they exist?')
-            }
-            if (!email || !password){
-                throw new Error('400 - uh oh, something is off with those credentials!');
-            }
-        }
-        })
-        .then(() => {
-            // debugger;
-            resetForm();
-        })
-        .then(() => history.push('/home'))
-        .catch(err => setMessage(err.message));
-    }
+    
 
     return(
         <>
-            <PopupWithForm name='credentials' title='Log in' isOpen={true} text="Log in" onSubmit={handleSubmit} to='/home'>
+            <PopupWithForm name='credentials' title='Log in' isOpen={true} text="Log in" onSubmit={handleLoginSubmit} to='/home'>
                 <Link className='credentials-page__swap-btn' to='/signup'>
                     Sign up
                 </Link>

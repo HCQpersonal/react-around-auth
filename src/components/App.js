@@ -32,6 +32,8 @@ function App(props) {
   const [userEmail, setUserEmail] = React.useState(false);
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [message, setMessage] = React.useState('');
+
 
   const history = useHistory();
 
@@ -56,6 +58,7 @@ function App(props) {
     localStorage.removeItem('jwt');
     setLoggedIn(false);
     history.push('/signin');
+    // resetForm();
   }
 
   function handleEditAvatarClick() {
@@ -180,28 +183,85 @@ function App(props) {
           });
       }, []);
 
+      const resetForm = (e) => {
+        setEmail('')
+        setPassword('')
+        setMessage('')
+    }
+
+    const handleRegisterSubmit = (e) => {
+        e.preventDefault();
+        const [email, password] = [e.target.email.value, e.target.password.value];
+
+        auth.register(email, password)
+            .then((res) => {
+            if (!res.data) {
+                handleTooltip('failure');
+                throw new Error(`${res.message ? res.message : res.error}`);
+              }})
+              .then((res) => {
+                setRegistered(true);
+                history.push('/signin');
+              })
+              .then((res) => {
+                handleTooltip('success');
+                return res;
+              })
+            // .then(resetForm)
+            .catch(err => {
+              console.log(err)
+            });
+        }
+
+      const handleLoginSubmit = (e) => {
+        e.preventDefault();
+        const [email, password] = [e.target.email.value, e.target.password.value];
+
+        auth.authorize(email, password)
+        .then((data) => {
+            if (data){
+                handleLogin();
+                history.push('/home')
+            } else {
+                resetForm();
+                if (!email || !password){
+                  throw new Error('400 - uh oh, something is off with those credentials!');
+                }
+                if (!data){
+                    throw new Error('We cannot seem to find that user -- are you sure they exist?')
+                }
+          }
+        })
+        // .then(() => {
+        //     resetForm();
+        // })
+        // .then(() => {
+        //   history.push('/home')
+        // })
+        .catch(err => setMessage(err.message));
+    }
 
   return (
-    <>
+    // <>
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
               <div className="page__container">
               <Router>
                 <Header loggedIn={loggedIn} userEmail={userEmail} handleLogout={onLogout} />
-                <InfoTooltip isOpen={isTooltipOpen} onClose={closeAllPopups} feedback={tooltipFeedback} loggedIn={loggedIn} />
-                <PopupWithForm name="delete" title="Are you sure?" isOpen={isDeletePlacePopupOpen} onClose={closeAllPopups} onDeletePlace={handleDeletePlaceClick} text="Yes" />
-                <PopupWithImage isOpen={isImagePopupOpen} onClose={closeAllPopups} card={selectedCard} />
                     <Switch>
+                      {/* <ProtectedRoute path='/profile' loggedIn={loggedIn} component={EditProfilePopup} /> */}
+                      <Route exact path='/signin' >
+                        <Login handleLogin={handleLogin} handleLoginSubmit={handleLoginSubmit} feedback={tooltipFeedback} handleLogout={onLogout} userEmail={userEmail} setUserEmail={setUserEmail} handleTooltip={handleTooltip} password={password}
+              setPassword={setPassword} />
+                      </Route>
+                      <Route exact path='/signup'>
+                        <Register handleRegisterSubmit={handleRegisterSubmit} registered={registered} handleLogin={handleLogin} userEmail={userEmail}
+                          setUserEmail={setUserEmail} email={email} password={password}
+                          setPassword={setPassword} handleTooltip={handleTooltip} feedback={tooltipFeedback} handleLogout={onLogout} />
+                        <InfoTooltip isOpen={isTooltipOpen} onClose={closeAllPopups} feedback={tooltipFeedback} loggedIn={loggedIn} />
+                      </Route>
                       <Route exact path='/'>
                         {loggedIn ? <Redirect to="/home" /> : <Redirect to="/signin" />}
-                      </Route>
-                      <ProtectedRoute path='/profile' loggedIn={loggedIn} component={EditProfilePopup} />
-                      <Route path='/signin'>
-                        <Login handleLogin={handleLogin} feedback={tooltipFeedback} handleLogout={onLogout} userEmail={userEmail} setUserEmail={setUserEmail} handleTooltip={handleTooltip} />
-                      </Route>
-                      <Route path='/signup'>
-                        <Register handleLogin={handleLogin} userEmail={setUserEmail}
-                          setUserEmail={setUserEmail} handleTooltip={handleTooltip} feedback={tooltipFeedback} handleLogout={onLogout} />
                       </Route>
                       <Route path='/home'>
                         <EditProfilePopup
@@ -219,7 +279,10 @@ function App(props) {
                             onClose={closeAllPopups}
                             onAddNewCard={handleAddPlace}
                         />
-                        <ProtectedRoute path='/home' component={Main}
+                        <PopupWithForm name="delete" title="Are you sure?" isOpen={isDeletePlacePopupOpen} onClose={closeAllPopups} onDeletePlace={handleDeletePlaceClick} text="Yes" />
+                        <PopupWithImage isOpen={isImagePopupOpen} onClose={closeAllPopups} card={selectedCard} />
+                        <ProtectedRoute path='/home'
+                            component={Main}
                             loggedIn={loggedIn}
                             onEditProfile={handleEditProfileClick}
                             onAddPlace={handleAddPlaceClick}
@@ -244,8 +307,9 @@ function App(props) {
               </div>
             </div>
         </CurrentUserContext.Provider>
-    </>
+    // </>
   );
 }
 
+// export default App;
 export default withRouter(App);

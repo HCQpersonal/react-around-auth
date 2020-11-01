@@ -4,43 +4,13 @@ import { Link, useHistory} from 'react-router-dom';
 import { PopupWithForm } from './PopupWithForm';
 import * as auth from '../utils/Auth';
 
-function Register({ handleLogin, handleTooltip }) {
+function Register({ handleLogin, handleTooltip, handleRegisterSubmit }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [registered, setRegistered] = useState('');
     const [message, setMessage] = useState('');
 
-
     const history = useHistory();
-
-    const resetForm = (e) => {
-        setEmail('')
-        setPassword('')
-        setMessage('')
-    }
-
-    const handleRegSubmit = (e) => {
-        e.preventDefault();
-
-        auth.register(email, password)
-            .then((res) => {
-            if (!res.data) {
-                handleTooltip('failure');
-                throw new Error(`${res.message ? res.message : res.error}`);
-              }})
-              .then((res) => {
-                history.push('/signin');
-                setRegistered(true);
-              })
-              .then((res) => {
-                handleTooltip('success');
-                return res;
-              })
-            .then(resetForm)
-            .catch(err => {
-              console.log(err)
-            });
-        }
 
     React.useEffect(() => {
         if(localStorage.getItem('jwt')) {
@@ -50,7 +20,7 @@ function Register({ handleLogin, handleTooltip }) {
 
     return (
         <>
-            <PopupWithForm title='Sign up' name='credentials' text='Sign up' isOpen={true} onSubmit={handleRegSubmit}>
+            <PopupWithForm title='Sign up' name='credentials' text='Sign up' isOpen={true} onSubmit={handleRegisterSubmit}>
                 <Link className='credentials-page__swap-btn' to='/signin'>
                     Log in
                 </Link>
