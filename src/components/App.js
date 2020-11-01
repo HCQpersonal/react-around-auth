@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Switch, useHistory, Redirect, withRouter } from 'react-router-dom';
 import { api } from '../utils/Api';
 import { AddPlacePopup } from './AddPlacePopup';
@@ -130,10 +130,6 @@ function App(props) {
       setSelectedCard(null);
   }
 
-  function handleLogin() {
-    setLoggedIn(true);
-  }
-
   function handleTooltip(feedback) {
       setTooltipFeedback(feedback);
       setIsTooltipOpen(true);
@@ -145,7 +141,16 @@ function App(props) {
     history.push('/signin');
   }
   
+  function handleLogin() {
+    setLoggedIn(true);
+    setUserEmail(email);
+  }
+
+  // const loggedInRef = handleLogin();
+
   React.useEffect(() => {
+
+    if (loggedIn) {
       api.getUserInfo()
         .then((res) => {
           setCurrentUser(res);
@@ -163,7 +168,8 @@ function App(props) {
           .catch((err) => {
             console.log(err);
           });
-      }, []);
+        }
+      }, [loggedIn]);
 
       const resetForm = (e) => {
         setEmail('')
