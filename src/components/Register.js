@@ -2,13 +2,10 @@
 import React, { useState } from 'react';
 import { Link, useHistory} from 'react-router-dom';
 import { PopupWithForm } from './PopupWithForm';
-import * as auth from '../utils/Auth';
 
 function Register({ handleLogin, handleTooltip, handleRegisterSubmit }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [registered, setRegistered] = useState('');
-    const [message, setMessage] = useState('');
 
     const history = useHistory();
 
