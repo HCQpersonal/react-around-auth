@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import '../blocks/header/header.css';
 
 function Nav({ loggedIn, userEmail, handleLogout }) {
   return (

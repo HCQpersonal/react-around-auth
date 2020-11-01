@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, useHistory, Redirect, withRouter } from 'react-router-dom';
+import { Route, Switch, useHistory, Redirect, withRouter } from 'react-router-dom';
 import { api } from '../utils/Api';
 import { AddPlacePopup } from './AddPlacePopup';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
@@ -34,32 +34,8 @@ function App(props) {
   const [password, setPassword] = React.useState('');
   const [message, setMessage] = React.useState('');
 
-
   const history = useHistory();
 
-  React.useEffect(() => {
-    const jwt = localStorage.getItem('jwt');
-
-    if (jwt) {
-      auth.getContent(jwt)
-      .then((res) => {
-        setLoggedIn(true);
-        setUserEmail(res.data.email);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    } else {
-      setLoggedIn(false);
-    }
-  }, [] );
-
-  const onLogout = () => {
-    localStorage.removeItem('jwt');
-    setLoggedIn(false);
-    history.push('/signin');
-    // resetForm();
-  }
 
   function handleEditAvatarClick() {
       setIsEditAvatarPopupOpen(true);
@@ -162,6 +138,12 @@ function App(props) {
       setTooltipFeedback(feedback);
       setIsTooltipOpen(true);
   }
+
+  const onLogout = () => {
+    localStorage.removeItem('jwt');
+    setLoggedIn(false);
+    history.push('/signin');
+  }
   
   React.useEffect(() => {
       api.getUserInfo()
@@ -188,6 +170,23 @@ function App(props) {
         setPassword('')
         setMessage('')
     }
+
+    React.useEffect(() => {
+      const jwt = localStorage.getItem('jwt');
+  
+      if (jwt) {
+        auth.getContent(jwt)
+        .then((res) => {
+          setLoggedIn(true);
+          setUserEmail(res.data.email);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      } else {
+        setLoggedIn(false);
+      }
+    }, [] );
 
     const handleRegisterSubmit = (e) => {
         e.preventDefault();
@@ -246,10 +245,8 @@ function App(props) {
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
               <div className="page__container">
-              <Router>
                 <Header loggedIn={loggedIn} userEmail={userEmail} handleLogout={onLogout} />
                     <Switch>
-                      {/* <ProtectedRoute path='/profile' loggedIn={loggedIn} component={EditProfilePopup} /> */}
                       <Route exact path='/signin' >
                         <Login handleLogin={handleLogin} handleLoginSubmit={handleLoginSubmit} feedback={tooltipFeedback} handleLogout={onLogout} userEmail={userEmail} setUserEmail={setUserEmail} handleTooltip={handleTooltip} password={password}
               setPassword={setPassword} />
@@ -303,7 +300,6 @@ function App(props) {
                     </Route>
                     <Redirect from='*' to='/' />
                   </Switch>
-                </Router>
               </div>
             </div>
         </CurrentUserContext.Provider>
