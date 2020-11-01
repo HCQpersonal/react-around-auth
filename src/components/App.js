@@ -164,19 +164,19 @@ function App(props) {
       api.getUserInfo()
         .then((res) => {
           setCurrentUser(res);
-          // setCurrentUser(res.owner._id);
-        }).catch((err) => {
-          console.log(err);
-        });
-    }, []);
-
-    React.useEffect(() => {
+      // setCurrentUser(res.owner._id);
       // setIsLoading(true);
-      api.getCardList()
-          .then((res) => {
-              setCards((cards) => [...cards, ...res]);
-          }).catch((err) => {
-              console.log(err);
+        api.getCardList()
+            .then((res) => {
+              if (res) {
+                setCards((cards) => [...cards, ...res]);
+              }
+            }).catch((err) => {
+                console.log(err);
+            });
+        })
+          .catch((err) => {
+            console.log(err);
           });
       }, []);
 
