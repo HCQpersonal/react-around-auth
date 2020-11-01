@@ -82,22 +82,38 @@ function App(props) {
       api.updateUserInfo({ name, about })
         .then((res) => {
           setCurrentUser(res)
-        });
-      closeAllPopups();
+        })
+        .then((res) => {
+          closeAllPopups()
+        })
+        .catch((err) => {
+          console.log(err);
+        });    
     }
 
   function handleUpdateAvatar({ avatar }) {
-      api.setUserAvatar(avatar.current.value).then((res) => {
+      api.setUserAvatar(avatar.current.value)
+      .then((res) => {
           setCurrentUser(res);
+        })
+        .then((res) => {
+          closeAllPopups()
+        })
+        .catch((err) => {
+          console.log(err);
         });
-      closeAllPopups();
   }
 
   function handleAddPlace({ caption, imageUrl }) {
       api.addCard({ caption, imageUrl }).then((newCard) => {
         setCards([...cards, newCard]);
+      })
+      .then((res) => {
+        closeAllPopups()
+      })
+      .catch((err) => {
+        console.log(err);
       });
-      closeAllPopups();
     }
 
     function handleCardLike(card) {
@@ -111,8 +127,13 @@ function App(props) {
     function handleCardDelete(card) {    
         api.deleteCard(card._id).then(() => {
             setCards(cards.filter((c) => c._id !== card._id));
+        })
+        .then((res) => {
+          closeAllPopups()
+        })
+        .catch((err) => {
+          console.log(err);
         });
-        closeAllPopups();
     }
   
     React.useEffect(() => {

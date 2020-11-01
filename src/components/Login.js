@@ -14,7 +14,6 @@ function Login({ loggedIn, handleLogin, userEmail, setUserEmail }) {
     const resetForm = (e) => {
         setEmail('')
         setPassword('')
-        // debugger;
         // setMessage('')
     }
 
